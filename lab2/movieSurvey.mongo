@@ -1,0 +1,24 @@
+// CSC 369, Lab 2
+// Holly Haraguchi
+// MovieSurvey dataset
+
+// Query 1
+db.survey.find( { "respondent.gender":"F" , "ratings.8" : {$gte : 6} } )
+
+// Query 2
+db.survey.find( { "respondent.state": { $in: ["ME", "NH", "VT", "MA", "RI", "NY", "NJ", "PA", "DE", "MD", "WV", "DC"]}, "respondent.education" : {$gte : 4}, "respondent.income" : {$gte : 4} } , {"ratings" : 1} )
+
+// Query 3
+db.survey.find().sort({"ratings.1" : -1}).limit(5)
+
+// Query 4
+db.survey.find( { "ratings.4" : {$lt : 4}, "ratings.3" : {$lt : 4}, "ratings.11" : {$lt : 4} } ).count()
+
+// Query 5
+// Omitted
+
+// Query 6
+db.survey.find( { "ratings.0" : {$gte : 8} } ).sort({ "respondent.age" : -1 }).limit(6)
+
+
+// end of queries
