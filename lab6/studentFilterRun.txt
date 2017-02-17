@@ -1,0 +1,88 @@
+// Holly Haraguchi
+// CSC 369, Winter 2017 
+// Lab 6 - Diagnostic Hadoop Output
+
+hharaguc@cslvm57:~/csc369/lab6$ hadoop jar MyMapReduceDriver.jar MyMapReduceDriver
+17/02/17 11:19:31 INFO impl.TimelineClientImpl: Timeline service address: http://cslvm56.csc.calpoly.edu:8188/ws/v1/timeline/
+17/02/17 11:19:31 INFO client.RMProxy: Connecting to ResourceManager at cslvm55.csc.calpoly.edu/129.65.156.55:8050
+17/02/17 11:19:32 INFO client.AHSProxy: Connecting to Application History server at cslvm56.csc.calpoly.edu/129.65.156.56:10200
+17/02/17 11:19:34 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+17/02/17 11:19:36 INFO input.FileInputFormat: Total input paths to process : 1
+17/02/17 11:19:37 INFO mapreduce.JobSubmitter: number of splits:1
+17/02/17 11:19:37 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1486956133951_0197
+17/02/17 11:19:39 INFO impl.YarnClientImpl: Submitted application application_1486956133951_0197
+17/02/17 11:19:39 INFO mapreduce.Job: The url to track the job: http://cslvm55.csc.calpoly.edu:8088/proxy/application_1486956133951_0197/
+17/02/17 11:19:39 INFO mapreduce.Job: Running job: job_1486956133951_0197
+17/02/17 11:20:56 INFO mapreduce.Job: Job job_1486956133951_0197 running in uber mode : false
+17/02/17 11:20:56 INFO mapreduce.Job:  map 0% reduce 0%
+17/02/17 11:21:14 INFO mapreduce.Job: Task Id : attempt_1486956133951_0197_m_000000_0, Status : FAILED
+Container [pid=13831,containerID=container_1486956133951_0197_01_000002] is running beyond physical memory limits. Current usage: 186.1 MB of 170 MB physical memory used; 1.7 GB of 357.0 MB virtual memory used. Killing container.
+Dump of the process-tree for container_1486956133951_0197_01_000002 :
+	|- PID PPID PGRPID SESSID CMD_NAME USER_MODE_TIME(MILLIS) SYSTEM_TIME(MILLIS) VMEM_USAGE(BYTES) RSSMEM_USAGE(PAGES) FULL_CMD_LINE
+	|- 13831 13830 13831 13831 (bash) 0 0 12894208 738 /bin/bash -c /usr/jdk64/jdk1.8.0_77/bin/java -server -XX:NewRatio=8 -Djava.net.preferIPv4Stack=true -Dhdp.version=2.5.3.0-37 -Xmx136m -Djava.io.tmpdir=/hadoop/yarn/local/usercache/hharaguc/appcache/application_1486956133951_0197/container_1486956133951_0197_01_000002/tmp -Dlog4j.configuration=container-log4j.properties -Dyarn.app.container.log.dir=/hadoop/yarn/log/application_1486956133951_0197/container_1486956133951_0197_01_000002 -Dyarn.app.container.log.filesize=0 -Dhadoop.root.logger=INFO,CLA -Dhadoop.root.logfile=syslog org.apache.hadoop.mapred.YarnChild 129.65.156.57 37299 attempt_1486956133951_0197_m_000000_0 2 1>/hadoop/yarn/log/application_1486956133951_0197/container_1486956133951_0197_01_000002/stdout 2>/hadoop/yarn/log/application_1486956133951_0197/container_1486956133951_0197_01_000002/stderr  
+	|- 13842 13831 13831 13831 (java) 507 34 1803333632 46914 /usr/jdk64/jdk1.8.0_77/bin/java -server -XX:NewRatio=8 -Djava.net.preferIPv4Stack=true -Dhdp.version=2.5.3.0-37 -Xmx136m -Djava.io.tmpdir=/hadoop/yarn/local/usercache/hharaguc/appcache/application_1486956133951_0197/container_1486956133951_0197_01_000002/tmp -Dlog4j.configuration=container-log4j.properties -Dyarn.app.container.log.dir=/hadoop/yarn/log/application_1486956133951_0197/container_1486956133951_0197_01_000002 -Dyarn.app.container.log.filesize=0 -Dhadoop.root.logger=INFO,CLA -Dhadoop.root.logfile=syslog org.apache.hadoop.mapred.YarnChild 129.65.156.57 37299 attempt_1486956133951_0197_m_000000_0 2 
+
+Container killed on request. Exit code is 143
+Container exited with a non-zero exit code 143
+
+17/02/17 11:21:26 INFO mapreduce.Job:  map 100% reduce 0%
+17/02/17 11:21:43 INFO mapreduce.Job:  map 100% reduce 100%
+17/02/17 11:21:44 INFO mapreduce.Job: Job job_1486956133951_0197 completed successfully
+17/02/17 11:21:44 INFO mapreduce.Job: Counters: 51
+	File System Counters
+		FILE: Number of bytes read=39
+		FILE: Number of bytes written=283587
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=3372
+		HDFS: Number of bytes written=31
+		HDFS: Number of read operations=6
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Failed map tasks=1
+		Launched map tasks=2
+		Launched reduce tasks=1
+		Other local map tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=25216
+		Total time spent by all reduces in occupied slots (ms)=29692
+		Total time spent by all map tasks (ms)=25216
+		Total time spent by all reduce tasks (ms)=14846
+		Total vcore-milliseconds taken by all map tasks=25216
+		Total vcore-milliseconds taken by all reduce tasks=14846
+		Total megabyte-milliseconds taken by all map tasks=4286720
+		Total megabyte-milliseconds taken by all reduce tasks=5047640
+	Map-Reduce Framework
+		Map input records=100
+		Map output records=1
+		Map output bytes=31
+		Map output materialized bytes=39
+		Input split bytes=118
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=1
+		Reduce shuffle bytes=39
+		Reduce input records=1
+		Reduce output records=1
+		Spilled Records=2
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=431
+		CPU time spent (ms)=1980
+		Physical memory (bytes) snapshot=323190784
+		Virtual memory (bytes) snapshot=3811528704
+		Total committed heap usage (bytes)=163643392
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=3254
+	File Output Format Counters 
+		Bytes Written=31
