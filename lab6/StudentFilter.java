@@ -23,29 +23,33 @@ import org.apache.hadoop.fs.Path;                // Hadoop's implementation of d
 // Exception handling
 import java.io.IOException;
 
+// Configuration
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.mapreduce.lib.input.KeyValueTextInputFormat;
 
 // DRIVER CLASS
-public class MyMapReduceDriver {
+public class StudentFilter {
 
    // Section 2: Mapper Class Template
-   public static class MyMapperClass extends Mapper<LongWritable, Text, Text, Text> {
+   public static class MyMapperClass extends Mapper<Text, Text, Text, Text> {
       @Override
-      public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-         String outName = "Holly Haraguchi";
-   
-         String name = "";
+      public void map(Text key, Text value, Context context) throws IOException, InterruptedException {
+
+         final String outName = "Holly Haraguchi";
+         
          String text[] = value.toString().split(",");
-   
-         // Analyze the input 
-         if (text.length == 3) {
-            name = text[1];
+
+         if (text.length == 2) {
+            String name = text[0];
+         
+            // Analyze the input 
             Text outKey = new Text(name);
-            Text outValue = new Text(outName); 
-     
+            Text outValue = new Text(outName);
+
             if (name.charAt(0) == outName.charAt(0)) {
-               context.write(outKey, outValue); 
-            } 
-         }
+               context.write(outKey, outValue);
+            }   
+         } 
       } 
    } // MyMapperClass
 
@@ -69,15 +73,20 @@ public class MyMapReduceDriver {
 
    // Section 4:  MapReduce Driver
    public static void main(String[] args) throws Exception {
+      // Step 0: Config
+      Configuration conf = new Configuration();
+      conf.set("mapreduce.input.keyvaluelinerecordreader.key.value.separator",",");
+  
       // Step 1: get a new MapReduce Job object
-      Job job = Job.getInstance();  
+      Job job = Job.getInstance(conf);  
      
       // Step 2: register the MapReduce class
-      job.setJarByClass(MyMapReduceDriver.class);  
+      job.setJarByClass(StudentFilter.class);  
 
       // Step 3:  Set Input and Output files
       FileInputFormat.setInputPaths(job, new Path("/data/", "students.csv")); 
       FileOutputFormat.setOutputPath(job, new Path("./test/", "output")); 
+      job.setInputFormatClass(KeyValueTextInputFormat.class); 
 
       // Step 4:  Register mapper and reducer
       job.setMapperClass(MyMapperClass.class);
@@ -88,7 +97,7 @@ public class MyMapReduceDriver {
       job.setOutputValueClass(Text.class); // Specify the output class (what reduce() emits) for value
 
       // Step 6: Set up other job parameters at will
-      job.setJobName("My Test Job");
+      job.setJobName("Filter Student List - Holly Haraguchi");
 
       // Step 7:  ?
    
