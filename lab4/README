@@ -1,0 +1,16 @@
+Holly Haraguchi (hharaguc@calpoly.edu)
+Lab 4
+CSC 369, Winter 2016
+
+Data insertion files:
+  - insertSurvey100.js inserts 100 MovieSurvey objects into a collection called 'survey'
+  - insertThght100.js inserts 100 ThghtShre objects into a collection called 'thght'
+
+Text files with queries:
+  - movieSurvey.mongo
+  - ThghtShre.mongo
+
+Javascript programs with queries:
+  - movieSurvey.js
+  - ThghtShre.js
+

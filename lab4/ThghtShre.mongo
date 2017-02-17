@@ -1,0 +1,43 @@
+// Holly Haraguchi
+// Lab 4
+// CSC 369, Winter 2016
+
+// ThghtShre Queries
+// Query 1
+db.thght.aggregate([
+                     { "$group" : { "_id" : "$status" , "messages" : { "$sum" : { "$literal" : 1 } } } } ,
+                     { "$sort" : { messages : -1 } } ,
+                     { "$limit" : 1 } , 
+                     { "$project" : { "status" : "$_id", "messages" : "$messages", "_id" : 0 } }
+                  ])
+
+// Query 2
+db.thght.aggregate([
+                     { "$group" : { "_id" : "$user" , "recipients" : { "$addToSet" : "$recipient" } } } ,
+                     { "$project" : { "user" : "$_id", "recipients" : "$recipients", "_id" : 0 } }
+                  ])
+
+// Query 3
+db.thght.aggregate([
+                     { "$group" : { "_id" : "$user" , "recipients" : { "$addToSet" : "$recipient" } } } ,
+                     { "$project" : { "user" : "$_id", "recipients" : { "$size" : "$recipients" }, "_id" : 0 } }
+                  ])
+
+// Query 4
+db.thght.aggregate([
+                     { "$match" : { recipient : "self" } } ,
+                     { "$group" : { "_id" : "$status" , "count" : { "$sum": { "$literal" : 1 } } } } ,
+                     { "$sort" : { count : -1 } } , 
+                     { "$limit" : 1 } ,
+                     { "$project" : { "status" : "$_id" , "selfAddressed" : "$count", "_id" : 0 } }
+                  ])
+
+// Query 5
+db.thght.aggregate([
+                     { "$group" : { "_id" : "$user" , "msgCnt" : { "$sum" : { "$literal" : 1 } } , "texts" : { "$push" : "$text" } } } ,
+                     { "$match" : { "msgCnt" : { "$gt" : 2 } } } ,
+                     { "$project" : { "user" : "$_id", "text" : { "$arrayElemAt" : ["$texts", 1] }, "_id" : 0 } } , 
+                     { "$sort" : { user : 1 } }
+                  ])
+
+// end of queries

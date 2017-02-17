@@ -1,0 +1,98 @@
+// Holly Haraguchi
+// Lab 4
+// CSC 369, Winter 2016
+
+
+// MovieSurvey Queries
+// Query 1
+db.survey.aggregate ([   
+                        { "$unwind": "$ratings"} , 
+                        { "$group": { _id: "$_id", name: { $first: "$respondent.name" }, avgscore: { $avg: "$ratings" } } } ,
+                        { "$project": 
+                            { 
+                                name: { first: "$name.first" , last: "$name.last" } ,
+                                avgscore: "$avgscore" 
+                            }
+                        } 
+                    ])
+
+// Query 2
+db.survey.aggregate([
+                     { "$redact": 
+                        {
+                           "$cond": 
+                           {
+                              "if": 
+                              { 
+                                 "$gt": 
+                                    [
+                                      { "$arrayElemAt": [ "$ratings", 3 ] } ,
+                                      { "$arrayElemAt": [ "$ratings", 9 ] }
+                                    ]
+                              } ,
+                              "then": "$$KEEP" ,
+                              "else": "$$PRUNE"
+                           }
+                        }
+                     } ,
+                     { "$project":
+                        {
+                           name: { first: "$respondent.name.first" , last : "$respondent.name.last" } ,
+                           memento: { $arrayElemAt: ["$ratings", 3] } ,
+                           dogma: { $arrayElemAt: ["$ratings", 9] }
+                        }
+                     } ,
+                     { "$sort": { memento: -1 } }
+                  ])
+
+// Query 3
+db.survey.aggregate([
+                     { "$group": 
+                        { 
+                           "_id" : "Princess Bride", "ratings" : { "$push": { $arrayElemAt: ["$ratings", 5] } }
+                        }
+                     }
+                  ])
+
+// Query 4
+db.survey.aggregate([
+                     { "$unwind" : "$ratings" } ,
+                     { "$match" :  { "ratings": { "$gt" : 8} } } ,
+                     { "$project": 
+                        { 
+                           count: { "$literal": 1 } ,
+                           respondent: 1 ,
+                           ratings: 1 
+                        }
+                     } ,
+                     { "$group": 
+                        { 
+                           "_id": "$_id" , 
+                           "respondent": { "$first" : "$respondent" } ,
+                           "count": { "$sum" : "$count" }
+                        } 
+                     } , 
+                     { "$group":
+                        {
+                           "_id" : "$count",
+                           "users" : { "$push": { "id" : "$_id", "name" : { "first": "$respondent.name.first", "last" : "$respondent.name.last" }  } }
+                        }
+                     } ,
+                     { "$sort" : { _id : -1} } ,
+                     { "$limit" : 1 } ,
+                     { "$unwind" : "$users"} ,
+                     { "$project" : { "_id" : "$users.id", "name" : "$users.name" } }
+                  ])
+
+// Query 5
+db.survey.aggregate([
+                     { "$unwind" : { path: "$ratings", includeArrayIndex: "movieIdx" } } ,
+                     { "$group" : { "_id" : { gender: "$respondent.gender", movieIdx: "$movieIdx" } , "avgRating" : { "$avg" : "$ratings" } } } ,
+                     { "$group" : { "_id" : "$_id.gender" , "maxAvgRating" : { "$max" : "$avgRating" } , 
+                           "movies" : { "$push" : { "movieIdx": "$_id.movieIdx", "avgRating": "$avgRating" } } } } ,
+                     { "$project" : { movies : {"$filter" : { input: "$movies", as: "movie", cond: { $eq: [ "$$movie.avgRating", "$maxAvgRating" ] } } } } } ,
+                     { "$unwind" : "$movies"} ,
+                     { "$project" : { "gender" : "$_id", "favorite" : "$movies.movieIdx", "score" : "$movies.avgRating" } }                
+                  ])
+
+// end of queries
