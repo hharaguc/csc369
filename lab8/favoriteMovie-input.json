@@ -1,10 +1,1 @@
-{"ratings":[5.2,9.4,9.1,1.4,9.7,3.2,6.9,7.6,5.7,0.7,9.8,5.7,4.0],"respondent":{"income":1,"education":3,"gender":"M","name":{"last":"Wormuth","first":"Tyrone"},"state":"AZ","age":20},"RID":1}
-{"ratings":[7.1,6.7,3.9,7.3,6.8,0.0,9.5,1.3,7.6,0.0,3.8,7.1,0.0],"respondent":{"income":3,"education":3,"gender":"M","name":{"last":"Cinquanti","first":"Kurt"},"state":"MI","age":77},"RID":2}
-{"ratings":[8.1,1.2,6.5,3.2,1.5,0.0,3.1,0.0,8.2,2.1,6.7,8.9,1.9],"respondent":{"income":5,"education":2,"gender":"M","name":{"last":"Miskiewicz","first":"Lester"},"state":"CA","age":37},"RID":3}
-{"ratings":[5.5,7.7,8.4,8.5,8.0,0.0,3.8,5.0,5.2,2.7,9.0,5.8,0.0],"respondent":{"income":0,"education":2,"gender":"F","name":{"last":"Crummey","first":"Willena"},"state":"WA","age":50},"RID":4}
-{"ratings":[7.1,1.6,8.1,1.0,1.2,1.7,1.8,0.7,7.7,2.1,9.0,7.2,7.2],"respondent":{"income":2,"education":2,"gender":"M","name":{"last":"Purtell","first":"Edgar"},"state":"TX","age":20},"RID":5}
-{"ratings":[6.8,6.1,2.5,9.9,6.0,0.0,0.8,9.3,6.3,3.0,2.6,6.0,2.5],"respondent":{"income":1,"education":2,"gender":"M","name":{"last":"Brunston","first":"Lamar"},"state":"MA","age":24},"RID":6}
-{"ratings":[8.2,4.6,4.2,7.7,4.3,8.3,3.5,2.7,8.1,7.4,4.4,8.3,7.0],"respondent":{"income":5,"education":1,"gender":"M","name":{"last":"Henriksen","first":"Karisa"},"state":"AZ","age":32},"RID":7}
-{"ratings":[9.6,6.4,2.7,6.8,6.6,3.0,0.1,6.9,9.9,2.8,2.7,9.1,6.5],"respondent":{"income":3,"education":2,"gender":"M","name":{"last":"Gettings","first":"Denver"},"state":"MA","age":20},"RID":8}
-{"ratings":[7.6,6.3,0.1,1.8,6.3,8.9,1.4,5.0,7.6,8.9,1.0,7.4,6.0],"respondent":{"income":1,"education":0,"gender":"M","name":{"last":"Guerino","first":"Jesusita"},"state":"AZ","age":31},"RID":9}
-{"ratings":[9.5,8.4,1.4,9.5,8.1,2.4,2.4,0.8,9.7,2.3,1.5,9.9,3.6],"respondent":{"income":0,"education":0,"gender":"M","name":{"last":"Roh","first":"Sherley"},"state":"TN","age":55},"RID":10}
+{"ratings":[5.2,9.4,9.1,1.4,9.7,3.2,6.9,7.6,5.7,0.7,9.8,5.7,4.0],"respondent":{"income":1,"education":3,"gender":"M","name":{"last":"Wormuth","first":"Tyrone"},"state":"AZ","age":20},"RID":"1"}

@@ -30,23 +30,23 @@ import java.io.IOException;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
 
-public class favoriteMovie extends Configured implements Tools {
+public class favoriteMovie extends Configured implements Tool {
     // Mapper for movies.csv file
     // Input: (<movieId> , <movieTitle>)
     // Output: (<movieId>, <movieTitle>)
-    public static class MovieMapper extends Mapper< Text, Text, Text, Text > {
+    public static class MovieMapper extends Mapper< LongWritable, Text, Text, Text > {
         @Override
-        public void map(Text key, Text value, Context context)throws IOException, InterruptedException {
-            context.write(key, value);
+        public void map(LongWritable key, Text value, Context context)throws IOException, InterruptedException {
+            context.write(new Text(key.toString()), value);
         } 
     } 
 
     // Mapper for favoriteMovies.json file
     // Input: (<filePosn> , <movieRating JSON object>)
     // Output: (<movieId>, <respondent info>)
-    public static class JsonMapper extends Mapper< LongWritable, Text, Text, Text > {
+    public static class JsonMapper extends Mapper< Text, Text, Text, Text > {
         @Override
-        public void map(LongWritable key, Text value, Context context)throws IOException, InterruptedException {
+        public void map(Text key, Text value, Context context)throws IOException, InterruptedException {
             try {    
                 // Create a parser
                 JSONParser parser = new JSONParser();
@@ -91,8 +91,8 @@ public class favoriteMovie extends Configured implements Tools {
         job.setJarByClass(favoriteMovie.class);  
 
         // Step 3: Set up multiple inputs and single output
-        MultipleInputs.addInputPath(job, new Path(args[1]), TextInputFormat.class, MovieMapper.class);
-        MultipleInputs.addInputPath(job, new Path(args[0]), KeyValueTextInputFormat.class, JsonMapper.class);
+        MultipleInputs.addInputPath(job, new Path(args[0]), TextInputFormat.class, MovieMapper.class);
+        MultipleInputs.addInputPath(job, new Path(args[1]), KeyValueTextInputFormat.class, JsonMapper.class);
 
         FileOutputFormat.setOutputPath(job, new Path(args[2]));
 
